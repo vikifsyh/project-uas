@@ -2,11 +2,14 @@
 import AddProduct from "@/app/(admin)/dashboard/addProduct";
 import Icon from "@/app/components/atom/Icon";
 import { getData } from "@/services/products";
-
 import { useEffect, useState } from "react";
+import { getFirestore, doc, deleteDoc } from "firebase/firestore";
+import app from "../../../lib/firebase/init";
+
+const firestore = getFirestore(app);
 
 type Product = {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -27,6 +30,8 @@ export default function Table(props: ProductPageProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6;
   const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [productToEdit, setProductToEdit] = useState<Product | null>(null);
 
   const fetchProducts = async () => {
     try {
@@ -43,6 +48,30 @@ export default function Table(props: ProductPageProps) {
     fetchProducts();
   }, []);
 
+  const openEditModal = (product: Product) => {
+    setProductToEdit(product);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setProductToEdit(null);
+    setModalOpen(false);
+    fetchProducts();
+  };
+
+  const handleDeleteProduct = async (id: string) => {
+    const confirmed = window.confirm("Are you sure you want to delete this product?");
+    if (confirmed) {
+      const productDoc = doc(firestore, "products", id);
+      try {
+        await deleteDoc(productDoc);
+        fetchProducts(); // Refresh the product list after deletion
+      } catch (error) {
+        console.error("Error deleting document: ", error);
+      }
+    }
+  };
+
   // Pagination handlers
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -58,11 +87,17 @@ export default function Table(props: ProductPageProps) {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+
   return (
     <div className="w-3/4 mx-auto">
       <div className="relative my-4 ml-20 overflow-x-auto shadow-md sm:rounded-lg">
         <div className="py-4">
-          <AddProduct />
+          <button
+            onClick={() => setModalOpen(true)}
+            className="bg-primary text-white py-2 px-4 rounded"
+          >
+            Add Product
+          </button>
         </div>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
@@ -113,10 +148,16 @@ export default function Table(props: ProductPageProps) {
                   <td className="px-6 py-4">{product.location}</td>
                   <td className="px-6 py-4">{product.nomor}</td>
                   <td className="px-6 py-4 text-right">
-                    <button className="font-medium text-white bg-red-600 px-3 py-2 rounded-md">
+                    <button
+                      className="font-medium text-white bg-red-600 px-3 py-2 rounded-md"
+                      onClick={() => handleDeleteProduct(product.id)}
+                    >
                       Delete
                     </button>
-                    <button className="font-medium text-white bg-yellow-300 px-3 py-2 rounded-md ml-2">
+                    <button
+                      className="font-medium text-white bg-yellow-300 px-3 py-2 rounded-md ml-2"
+                      onClick={() => openEditModal(product)}
+                    >
                       Edit
                     </button>
                   </td>
@@ -213,6 +254,13 @@ export default function Table(props: ProductPageProps) {
           </div>
         </div>
       </div>
+      {modalOpen && (
+        <AddProduct
+          productToEdit={productToEdit}
+          closeModal={closeModal}
+          isEditMode={!!productToEdit}
+        />
+      )}
     </div>
   );
 }
