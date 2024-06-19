@@ -32,13 +32,14 @@ export default async function DetailProductPage(props: any) {
             </p>
             <div className="flex justify-between items-center mt-4">
               <div className="flex items-center gap-2">
-                <Image
-                  alt={product.data.img}
-                  src={product.data.img}
-                  className="rounded-full w-8 h-8"
-                  width={1000}
-                  height={1000}
-                />
+                <div className="w-6 h-6">
+                  <Image
+                    alt={product.data.img}
+                    src={product.data.img}
+                    width={1000}
+                    height={1000}
+                  />
+                </div>
                 <p className="text-base lg:text-lg text-baseBlack font-semibold">
                   {product.data.stall}
                 </p>

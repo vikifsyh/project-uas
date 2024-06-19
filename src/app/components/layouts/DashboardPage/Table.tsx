@@ -60,7 +60,9 @@ export default function Table(props: ProductPageProps) {
   };
 
   const handleDeleteProduct = async (id: string) => {
-    const confirmed = window.confirm("Are you sure you want to delete this product?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this product?"
+    );
     if (confirmed) {
       const productDoc = doc(firestore, "products", id);
       try {
