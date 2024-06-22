@@ -25,7 +25,7 @@ type Product = {
 };
 
 type AddProductProps = {
-  productToEdit?: Product;
+  productToEdit: Product;
   closeModal: () => void;
   isEditMode: boolean;
 };
@@ -119,7 +119,7 @@ export default function AddProduct({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-lg max-w-3xl w-full">
         <h3 className="text-lg font-semibold mb-4">
-          {isEditMode ? "Edit Product" : "Add New Product"}
+          {isEditMode ? "Edit Makanan" : "Tambah Makanan Baru"}
         </h3>
         <form onSubmit={isEditMode ? handleUpdateData : handleCreateData}>
           <div className="grid grid-cols-2 gap-4 mb-4">
@@ -128,7 +128,7 @@ export default function AddProduct({
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
-                Name
+                Nama Makanan
               </label>
               <input
                 type="text"
@@ -144,7 +144,7 @@ export default function AddProduct({
                 htmlFor="stall"
                 className="block text-sm font-medium text-gray-700"
               >
-                Stall
+                Kedai
               </label>
               <input
                 type="text"
@@ -162,7 +162,7 @@ export default function AddProduct({
                 htmlFor="price"
                 className="block text-sm font-medium text-gray-700"
               >
-                Price
+                Harga
               </label>
               <input
                 type="text"
@@ -178,7 +178,7 @@ export default function AddProduct({
                 htmlFor="location"
                 className="block text-sm font-medium text-gray-700"
               >
-                Location
+                Lokasi
               </label>
               <input
                 type="text"
@@ -212,7 +212,7 @@ export default function AddProduct({
                 htmlFor="image"
                 className="block text-sm font-medium text-gray-700"
               >
-                Upload Image
+                Unggah Gambar
               </label>
               <input
                 type="file"
@@ -225,7 +225,7 @@ export default function AddProduct({
                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                 id="file_input_help"
               >
-                SVG, PNG, JPG, or GIF (MAX. 800x400px).
+                PNG, JPG, atau JPEG.
               </p>
             </div>
           </div>
@@ -234,7 +234,7 @@ export default function AddProduct({
               htmlFor="desc"
               className="block text-sm font-medium text-gray-700"
             >
-              Description
+              Deskripsi Makanan
             </label>
             <textarea
               id="desc"
@@ -252,13 +252,13 @@ export default function AddProduct({
               onClick={closeModal}
               className="bg-gray-300 text-gray-700 py-2 px-4 rounded mr-2"
             >
-              Close
+              Tutup
             </button>
             <button
               type="submit"
               className="bg-primary text-white py-2 px-4 rounded"
             >
-              {isEditMode ? "Update" : "Save"}
+              {isEditMode ? "Memperbarui" : "Simpan"}
             </button>
           </div>
         </form>

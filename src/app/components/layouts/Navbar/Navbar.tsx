@@ -204,18 +204,6 @@ export default function Navbar() {
       </ul>
 
       <div className="items-center gap-9 flex">
-        <div className="hidden lg:flex relative w-full">
-          <div className="absolute inset-y-0 right-0 flex items-center w-7 h-7 rounded-full m-auto justify-center mr-3 cursor-pointer hover:bg-gray_3 transition-all duration-300 ease-in-out">
-            <Icon name="search" />
-          </div>
-
-          <input
-            type="text"
-            placeholder="Cari makanan"
-            className="p-2 pl-8 pr-16 rounded-full border border-gray w-full outline outline-1 active:outline-gray focus:outline-gray focus:ring-0 focus:border-gray-300 transition-all duration-300 ease-in-out hover:ring-0 hover:border-gray-300 text-gray"
-          />
-        </div>
-
         {status === "authenticated" ? (
           <div className="relative gap-3 items-center hidden lg:flex">
             <div className="flex items-center gap-1">
@@ -248,35 +236,6 @@ export default function Navbar() {
           </button>
         )}
       </div>
-
-      {isSearchVisible && (
-        <>
-          <div className="fixed bg-baseWhite top-0 right-0 left-0 h-full md:h-40 z-50 px-5">
-            <div className="py-5 flex items-center gap-4">
-              <div className="w-[50px] h-auto">
-                <Image alt="ump-culinary" src={Logo} width={50} height={50} />
-              </div>
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Cari makanan"
-                  className="p-2 pl-12 rounded-full border border-grey w-full outline-none active:outline-grey focus:outline-gray focus:ring-0 focus:border-gray-300 transition-all duration-300 ease-in-out hover:ring-0 hover:border-gray-300 text-grey"
-                  autoFocus
-                />
-                <div className="absolute inset-y-0 flex items-center w-7 h-7 rounded-full m-auto justify-center ml-3 cursor-pointer hover:bg-gray_3 transition-all duration-300 ease-in-out">
-                  <Icon name="search" />
-                </div>
-              </div>
-              <div
-                className="w-8 h-auto bg-white outline outline-1 hover:bg-baseBlack/50 rounded-full cursor-pointer flex items-center justify-center transition-all duration-300 ease-in-out"
-                onClick={() => setSearchVisible(false)}
-              >
-                <Icon name="close" width={24} height={24} />
-              </div>
-            </div>
-          </div>
-        </>
-      )}
     </nav>
   );
 }

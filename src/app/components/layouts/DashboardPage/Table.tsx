@@ -9,13 +9,22 @@ import app from "../../../lib/firebase/init";
 const firestore = getFirestore(app);
 
 type Product = {
+  // id: string;
+  // name: string;
+  // price: number;
+  // image: string;
+  // nomor: string;
+  // stall: string;
+  // location: string
   id: string;
-  name: string;
-  price: number;
+  desc: string;
   image: string;
-  nomor: string;
-  stall: string;
+  img: string;
   location: string;
+  name: string;
+  nomor: string;
+  price: string;
+  stall: string;
 };
 
 type ProductPageProps = {
@@ -31,7 +40,8 @@ export default function Table(props: ProductPageProps) {
   const productsPerPage = 6;
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const [productToEdit, setProductToEdit] = useState<Product | null>(null);
+  // const [productToEdit, setProductToEdit] = useState<Product | null>(null);
+  const [productToEdit, setProductToEdit] = useState<Product>();
 
   const fetchProducts = async () => {
     try {
@@ -54,7 +64,7 @@ export default function Table(props: ProductPageProps) {
   };
 
   const closeModal = () => {
-    setProductToEdit(null);
+    // setProductToEdit(null);
     setModalOpen(false);
     fetchProducts();
   };
@@ -98,7 +108,7 @@ export default function Table(props: ProductPageProps) {
             onClick={() => setModalOpen(true)}
             className="bg-primary text-white py-2 px-4 rounded"
           >
-            Add Product
+            Tambah Makanan
           </button>
         </div>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -128,7 +138,7 @@ export default function Table(props: ProductPageProps) {
                 Nomor Whatsapp
               </th>
               <th scope="col" className="px-6 py-3">
-                <span className="sr-only">Edit</span>
+                <span className="sr-only">Sunting</span>
               </th>
             </tr>
           </thead>
@@ -154,13 +164,13 @@ export default function Table(props: ProductPageProps) {
                       className="font-medium text-white bg-red-600 px-3 py-2 rounded-md"
                       onClick={() => handleDeleteProduct(product.id)}
                     >
-                      Delete
+                      Hapus
                     </button>
                     <button
                       className="font-medium text-white bg-yellow-300 px-3 py-2 rounded-md ml-2"
                       onClick={() => openEditModal(product)}
                     >
-                      Edit
+                      Sunting
                     </button>
                   </td>
                 </tr>
@@ -258,7 +268,7 @@ export default function Table(props: ProductPageProps) {
       </div>
       {modalOpen && (
         <AddProduct
-          productToEdit={productToEdit}
+          productToEdit={productToEdit!}
           closeModal={closeModal}
           isEditMode={!!productToEdit}
         />
