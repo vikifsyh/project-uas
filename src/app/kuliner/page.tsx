@@ -557,7 +557,9 @@ export default function ProductPage(props: ProductPageProps) {
                 </h2>
                 <p className="text-sm lg:text-xl text-primary">
                   <span className="text-[10px] md:text-sm">Rp.</span>
-                  {product.price.toLocaleString()}
+                  {product.price
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </p>
                 <Link
                   href={`https://wa.me/${product.nomor}`}

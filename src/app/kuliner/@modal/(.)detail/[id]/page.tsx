@@ -46,7 +46,7 @@ export default async function DetailProductPage(props: any) {
               </div>
 
               <div className="flex items-center">
-                <Icon name="location" />
+                <Icon name="location" width={20} height={20} />
                 <p className="text-sm md:text-base text-gray-500">
                   {product.data.location}
                 </p>

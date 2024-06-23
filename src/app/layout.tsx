@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { myFontAlliance } from "./fonts";
 import Navbar from "./components/layouts/Navbar/Navbar";
 import { SessionProvider } from "next-auth/react";
+import Footer from "./components/layouts/Footer/Footer";
 
 const disableNavbar = ["/login", "/register", "/dashboard"];
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <SessionProvider>
           {!disableNavbar.includes(pathname) && <Navbar />}
           {children}
+          <Footer />
         </SessionProvider>
       </body>
     </html>
